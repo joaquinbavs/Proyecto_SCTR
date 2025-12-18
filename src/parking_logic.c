@@ -33,7 +33,7 @@ void parking_update(float distance, bool sensor_error) {
         alert_occupied();
         break;
     case PARKING_ERROR:
-        alert_error();  // puedes hacer parpadeo
+        alert_error();  
         break;
     }
 }

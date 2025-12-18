@@ -1,38 +1,38 @@
-#include <stdio.h>          // Para printf()
-#include <stdbool.h>        // Para bool, true, false
-#include "pico/stdlib.h"    // Funciones del SDK: stdio_init_all, sleep_ms, timing, etc.
-#include "alerts.h"         // Declaraciones de alerts_init()
-#include "parking_logic.h"   // Declaraciones de parking_init(), parking_update()
-#include "hcsr04.h"         // Declaraciones de hcsr04_init(), hcsr04_update(), etc.
+#include <stdio.h>
+#include <stdbool.h>
+#include "pico/stdlib.h"
+#include "alerts.h"
+#include "parking_logic.h"
+#include "hcsr04.h"
 
 int main(void) {
     stdio_init_all();
 
     alerts_init();
     parking_init();
-    hcsr04_init(2, 3);
-
-    absolute_time_t last_measure = get_absolute_time();
+    hcsr04_init(16, 15);
+    float distance;
+    sleep_ms(2000);
 
     while (1) {
+        // Actualizar la distancia (ajusta según tu API real)
+        distance = hcsr04_update();
 
-        if (absolute_time_diff_us(last_measure, get_absolute_time()) > 500000) {
-            hcsr04_start_measurement();
-            last_measure = get_absolute_time();
+        // Mostrar distancia por pantalla
+        printf("Distancia: %.2f cm\n", distance);
+
+        // Lógica de alertas
+        if (distance < 0) {
+            alert_error();
+        } else if (distance < 50) {
+            alert_occupied();
+        } else if (distance < 100) {
+            alert_warning();
+        } else {
+            alert_free();
         }
 
-        if (hcsr04_update()) {
-            float d = hcsr04_get_distance_cm();
-            parking_update(d, false);
-            printf("Distancia: %.2f cm\n", d);
-        }
-
-        if (hcsr04_has_timeout()) {
-            parking_update(0, true);
-            printf("ERROR: Timeout sensor\n");
-        }
-
-        sleep_ms(10);
+        sleep_ms(500); // Evita saturar la consola
     }
 }
 
