@@ -1,8 +1,8 @@
 #ifndef ALERTS_H
 #define ALERTS_H
 
-#define buzzer PIN 14
-#define LED PIN 25
+#define BUZZER_PIN 14
+#define LED_PIN 25
 
 #include "pico/stdlib.h"
 

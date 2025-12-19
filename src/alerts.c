@@ -1,8 +1,6 @@
 #include "alerts.h"
 #include "pico/stdlib.h"
 
-#define LED 25
-
 void alerts_init(void) {
     gpio_init(LED);
     gpio_set_dir(LED, GPIO_OUT);

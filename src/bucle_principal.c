@@ -20,7 +20,7 @@ int main(void) {
 
         // Mostrar distancia por pantalla
         printf("Distancia: %.2f cm\n", distance);
-
+	fflush(stdout);
         // Lógica de alertas
         if (distance < 0) {
             alert_error();
