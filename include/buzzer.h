@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "pico/stdlib.h"
+
 // Inicializa el buzzer en un GPIO determinado
 void buzzer_init(uint pin);
 
