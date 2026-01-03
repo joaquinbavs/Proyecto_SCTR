@@ -13,6 +13,7 @@ void hc_sr04_init(uint trig_pin, uint echo_pin) {
     gpio_init(trig_gpio);
     gpio_set_dir(trig_gpio, GPIO_OUT);
     gpio_put(trig_gpio, 0);
+    sleep_ms(100); //Evitar que se quede a 1 el sensor, y bloquee el microprocesador.
 
     gpio_init(echo_gpio);
     gpio_set_dir(echo_gpio, GPIO_IN);
@@ -39,8 +40,10 @@ float hc_sr04_medicion_cm(void) {
 
     // Modificando el anterior while:
     while(gpio_get(echo_gpio) == 1) {
-        if (absolute_time_diff_us(start, get_absolute_time()) > 30000) break; // 30 ms máximo
-    }
+        if (absolute_time_diff_us(start, get_absolute_time()) > 50000) {
+            break; // 50 ms máximo
+            }
+        }
 
     end = get_absolute_time();
 
