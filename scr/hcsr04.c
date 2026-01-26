@@ -26,21 +26,21 @@ float hc_sr04_medicion_cm(void) {
     absolute_time_t start, end;   // Tiempos de inicio y fin del pulso ECHO
     uint64_t pulse_width;         // Duración del pulso ECHO en microsegundos
 
-    // ---------- Generación del pulso TRIG ----------
+    // ---------- Generación del pulso TRIG ---------
     gpio_put(trig_gpio, 0);       // Asegura TRIG en bajo
     sleep_us(2);                  // Espera 2 µs (estabilización)
     gpio_put(trig_gpio, 1);       // Activa TRIG
     sleep_us(10);                 // Pulso de 10 µs (requisito del HC-SR04)
     gpio_put(trig_gpio, 0);       // Finaliza el pulso TRIG
 
-    // ---------- Espera a que ECHO suba ----------
+    // ---------- Espera a que ECHO suba ---------
     while (gpio_get(echo_gpio) == 0);
     // Bloquea la ejecución hasta que ECHO pase a nivel alto
     // Indica que el ultrasonido fue emitido y regresó
 
     start = get_absolute_time();  // Guarda el tiempo cuando ECHO se pone en alto
 
-    // ---------- Espera a que ECHO baje ----------
+    // ---------- Espera a que ECHO baje ---------
     while (gpio_get(echo_gpio) == 1);
     // Bloquea hasta que ECHO vuelva a nivel bajo
     // Marca el final del pulso
