@@ -1,0 +1,23 @@
+#include "logica_distancia.h"
+
+// Configuración de ejemplo
+#define MIN_DISTANCE_CM 10.0f
+#define MAX_DISTANCE_CM 300.0f
+#define MIN_DELAY_MS 150   // Delay mínimo (rápido) cuando está cerca
+#define MAX_DELAY_MS 1500  // Delay máximo (lento) cuando está lejos
+
+uint32_t distance_to_delay_ms(float distance_cm) {
+    if (distance_cm <= MIN_DISTANCE_CM) return MIN_DELAY_MS;
+    if (distance_cm >= MAX_DISTANCE_CM) return MAX_DELAY_MS;
+
+    // Interpolación lineal: más cerca → delay menor, más lejos → delay mayor
+    float ratio = (distance_cm - MIN_DISTANCE_CM) / (MAX_DISTANCE_CM - MIN_DISTANCE_CM);
+
+    float cubo = ratio*ratio*ratio; //Para que se note más la diferencia en el parpadeo
+
+    return (uint32_t)(MIN_DELAY_MS + cubo * (MAX_DELAY_MS - MIN_DELAY_MS));
+}
+
+bool is_object_close(float distance_cm) {
+    return distance_cm <= MIN_DISTANCE_CM;
+}
