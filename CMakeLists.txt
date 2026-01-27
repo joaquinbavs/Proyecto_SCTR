@@ -12,6 +12,7 @@ add_executable(sensor_proximidad
     src/led.c
     src/logica_distancia.c
     src/buzzer.c
+    src/fsm_control.c
 )
 
 target_include_directories(sensor_proximidad PRIVATE
