@@ -4,3 +4,4 @@ Por último tenemos una rama, la cual fue la base a partir de la cual se crearon
 Además tenemos otros dos archivos. Pico_sdk_import_cmake que es un script que te ayuda a incluir y configurar el SDK de la Raspberry Pi Pico; 
 y por otro lado CMakeLists.txt que es el archivo de configuración que define cómo se debe construir el proyecto, incluyendo el uso de bibliotecas, fuentes y configuraciones específicas. 
 Por último se adjunta un esquema del circuito de nuestra placa:
+<img width="485" height="344" alt="image" src="https://github.com/user-attachments/assets/b0562ab4-7ef6-4eba-9fa8-0f90cc4e3f52" />
